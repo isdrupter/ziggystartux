@@ -1,6 +1,6 @@
 # ziggystartux
 A Kaiten rewrite, with much new functionality, and many fixes for the old stuff! Tailored toward embedded Linux devices, because... well, the internet of things of the new frontier!
-
+<pre>
 /*******************************************************************************
  *  oooooo  o                      .oPYo.  o             ooooo                 *
  *     d'                         8       8               8                    *
@@ -77,3 +77,4 @@ A Kaiten rewrite, with much new functionality, and many fixes for the old stuff!
  *                                                                             *
  *                               - contem on efnet                             *
  *******************************************************************************/
+</pre>
