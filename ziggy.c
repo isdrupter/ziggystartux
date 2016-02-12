@@ -55,7 +55,6 @@
  *       IRC <command>                 = Sends this command to the server      *
  *       SH <command>                  = Executes a command                    *
  *       BASH <command>                = Run a bash command                    *
- *	 ISH <command>		       = Interactive SH (via privmsg)          *
  *       SHD <command>                 = Daemonize command                     *
  *       UPDATE <http://server/bot>    = Update this bot		       *
  *       HACKPKG <http://server/bin>   = Install binary (no dependencies)      *
