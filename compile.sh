@@ -3,13 +3,32 @@
 # Mass Cross-Compile Shell Script, Darkerego 2016     #
 # GPL. Do whatever, just be kind and give the credit! #
 #######################################################
-#
+# Modified by isdrupter
+#######################################################
+##
 ## Path of C file
 cpath=.
 ## Target program name
 program=ktx
+#######################################################
+# Download toolchains from here: https://www.uclibc.org/downloads/binaries/0.9.30.1/
+#https://www.uclibc.org/downloads/binaries/0.9.30.1/cross-compiler-armv4l.tar.bz2 
+#https://www.uclibc.org/downloads/binaries/0.9.30.1/cross-compiler-armv5l.tar.bz2 
+#https://www.uclibc.org/downloads/binaries/0.9.30.1/cross-compiler-i586.tar.bz2 
+#https://www.uclibc.org/downloads/binaries/0.9.30.1/cross-compiler-i686.tar.bz2  
+#https://www.uclibc.org/downloads/binaries/0.9.30.1/cross-compiler-m68k.tar.bz2  
+#https://www.uclibc.org/downloads/binaries/0.9.30.1/cross-compiler-mips.tar.bz2  
+#https://www.uclibc.org/downloads/binaries/0.9.30.1/cross-compiler-mipsel.tar.bz2
+#https://www.uclibc.org/downloads/binaries/0.9.30.1/cross-compiler-powerpc-440fp.tar.bz2 
+#https://www.uclibc.org/downloads/binaries/0.9.30.1/cross-compiler-powerpc.tar.bz2 
+#https://www.uclibc.org/downloads/binaries/0.9.30.1/cross-compiler-sh4.tar.bz2 
+#https://www.uclibc.org/downloads/binaries/0.9.30.1/cross-compiler-sparc.tar.bz2 
+#https://www.uclibc.org/downloads/binaries/0.9.30.1/cross-compiler-x86_64.tar.bz2
 ## Path to toolchains
 toolchainPath="/opt/toolchains"
+# Create bin directory if not here
+[[ ! -d bin ]] && mkdir bin
+
 ## Name of toolchains
 #toolchains="cross-compiler-armv4l cross-compiler-m68k cross-compiler-powerpc-440fp cross-compiler-armv5l cross-compiler-mips cross-compiler-sh4 cross-compiler-i586 cross-compiler-mipsel cross-compiler-sparc cross-compiler-i686 cross-compiler-powerpc cross-compiler-x86_64"
 ## A more exhaustive example toolchain list:
@@ -22,7 +41,7 @@ else
     echo "Abort." && exit 1
 fi
 
-for i in $toolchains
+for i in "$toolchains"
 do
 
   target=$(echo $i | sed 's#.*-##')
