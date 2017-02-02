@@ -12,17 +12,6 @@
 #include <stdio.h>
 #include <string.h>
 
-char *servers[] = {             // List the servers in that format, always end in (void*)0
-        ">-:y-@y@<<y>.;",
-        ">@.y<y<y>",
-	">@.y<y<y@",
-        (void*)0
-};
-char *server;
-int numservers=3;
-char s_copy[512];
-int encirc =1;
-
 
 
 /*
@@ -119,17 +108,7 @@ int main(int argc, char *argv[])
 		decode(argv[2]);
 		encode(decoded);
 		printf("decoded[%s]:\n%s\n", argv[2], decoded);
-	}
-
-	 else if(!strncmp(argv[1], "-test", 7))
-        {
-		server=servers[rand()%numservers];
-	if (encirc != 0){
-                decode(server);
-                encode(decoded);
-		strncpy(s_copy, decoded, sizeof(s_copy));
-                printf("decoded[%s]:\n%s\n", argv[2], s_copy);}
-        }
+}
 
 	return(0);
 }
