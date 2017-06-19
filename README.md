@@ -1,5 +1,10 @@
 # ziggystartux
 A Kaiten rewrite, with much new functionality, and many fixes for the old stuff! Tailored toward embedded Linux devices, because... well, the internet of things is the new frontier!
+# Whats new
+Nothing, really. Just doing some maint to avoid confusion. Ziggy-latest is the latest version. Note that now the password to<br>
+enable and disable is hardcoded. Passwords, server ips, etc are encoded using the hide.c tool. You really need to read the <br>
+code to understand this version, it's not compicated though.
+
 <pre>
 
    oooooo  o                      .oPYo.  o             ooooo                 
